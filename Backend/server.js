@@ -6,7 +6,14 @@ import chatRoutes from "./routes/chat.js"
 const app = express();
 const port = process.env.PORT || 9080;
 app.use(express.json());
-app.use(cors());
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://vivekgptfrontend.onrender.com"
+];
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true,
+}));
 app.use("/api",chatRoutes)
 app.listen(port, () => {
   console.log(`server is running on ${port}`);
