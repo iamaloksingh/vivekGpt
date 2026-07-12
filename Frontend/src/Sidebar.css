@@ -1,0 +1,102 @@
+.sidebar {
+    background: var(--panel);
+    color: var(--text);
+    height: 100vh;
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 1px solid var(--border);
+}
+
+.newChatButton {
+    width: calc(100% - 1.4rem);
+    margin: 0.7rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 0.9rem;
+    border-radius: 14px;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    cursor: pointer;
+}
+
+.logo {
+    height: 25px;
+    width: 25px;
+    background-color: #fff;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.newChatButton:hover {
+    background: var(--accent-soft);
+}
+
+.history {
+    margin: 0.4rem 0.7rem 0;
+    padding: 0.4rem 0.2rem;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.history li {
+    list-style-type: none;
+    cursor: pointer;
+    padding: 0.7rem 0.7rem;
+    margin-bottom: 0.35rem;
+    font-size: 0.9rem;
+    border-radius: 12px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.history li:hover {
+    background: var(--accent-soft);
+}
+
+.emptyState {
+    margin: 0.6rem 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.sign {
+    padding: 1rem 0.9rem;
+    margin: 0.7rem;
+    font-size: 0.9rem;
+    text-align: left;
+    border-top: 1px solid var(--border);
+}
+
+.signName {
+    margin: 0 0 0.2rem;
+    font-weight: 700;
+}
+
+.signEmail {
+    margin: 0;
+    color: var(--muted);
+}
+
+.deleteThread {
+    opacity: 0;
+    color: var(--muted);
+}
+
+.history li:hover .deleteThread {
+    opacity: 1;
+}
+
+.deleteThread:hover {
+    color: #f87171 !important;
+}
+
+.highlighted {
+    background: var(--accent-soft);
+}

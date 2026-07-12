@@ -1,0 +1,148 @@
+.chatWindow {
+    background: var(--bg);
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    padding: 0.8rem 0 1rem;
+}
+
+.navbar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 700;
+}
+
+.profileMenu {
+    position: relative;
+}
+
+.userIconDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.userIcon {
+    background: linear-gradient(135deg, var(--accent), #818cf8);
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+}
+
+.chatInput {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.inputBox {
+    width: 100%;
+    position: relative;
+    max-width: 760px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.inputBox input {
+    width: 100%;
+    border: 1px solid var(--border);
+    background: var(--panel);
+    color: var(--text);
+    padding: 1rem 5.5rem 1rem 1rem;
+    font-size: 0.95rem;
+    border-radius: 999px;
+    box-shadow: var(--shadow);
+}
+
+.inputBox input:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.inputActions {
+    position: absolute;
+    right: 0.6rem;
+    display: flex;
+    gap: 0.4rem;
+}
+
+.sendButton, .voiceButton {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.voiceButton {
+    background: var(--panel-2);
+    color: var(--text);
+}
+
+.voiceButton.listening {
+    background: #ef4444;
+    color: white;
+}
+
+.info {
+    font-size: 0.82rem;
+    padding: 0.5rem 0 0;
+    color: var(--muted);
+}
+
+.errorText {
+    color: #ef4444;
+}
+
+.dropDown {
+    position: absolute;
+    top: 3.3rem;
+    right: 0;
+    width: 210px;
+    background: var(--panel);
+    padding: 0.4rem;
+    border-radius: 14px;
+    text-align: left;
+    z-index: 1000;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+}
+
+.dropDownItem {
+    font-size: 0.92rem;
+    margin: 0.2rem 0;
+    padding: 0.65rem 0.75rem;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.dropDownItem:hover {
+    background: var(--accent-soft);
+}
