@@ -1,14 +1,14 @@
 :root {
     color-scheme: dark;
-    --bg: #111827;
+    --bg: #21293a;
     --panel: #171f2f;
     --panel-2: #20283b;
     --text: #f8fafc;
     --muted: #94a3b8;
-    --accent: #4f46e5;
+    --accent: #868597;
     --accent-soft: rgba(79, 70, 229, 0.16);
-    --border: rgba(255,255,255,0.12);
-    --shadow: 0 20px 40px rgba(2, 8, 23, 0.35);
+    --border: rgba(72, 61, 61, 0.12);
+    --shadow: 0 20px 40px rgba(30, 28, 28, 0.35);
 }
 
 [data-theme='light'] {

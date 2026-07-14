@@ -110,11 +110,11 @@ function App() {
         <div className="authCard">
           <div className="authHeader">
             <div>
-              <p className="authEyebrow">Welcome back</p>
+              <p className="authEyebrow">Welcome back </p>
               <h1>{authMode === 'login' ? 'Sign in to continue' : 'Create your account'}</h1>
             </div>
             <button type="button" className="themeToggle" onClick={toggleTheme}>
-              {theme === 'dark' ? '☀️' : '🌙'}
+              {theme === 'dark' ? '🌕' : '🌙'}
             </button>
           </div>
 
@@ -137,7 +137,7 @@ function App() {
               <input
                 id="email"
                 type="email"
-                placeholder="you@example.com"
+                placeholder="alok@gmail.com"
                 value={authForm.email}
                 onChange={(event) => setAuthForm((prev) => ({ ...prev, email: event.target.value }))}
               />
@@ -148,7 +148,7 @@ function App() {
               <input
                 id="password"
                 type="password"
-                placeholder="••••••••"
+                placeholder="********"
                 value={authForm.password}
                 onChange={(event) => setAuthForm((prev) => ({ ...prev, password: event.target.value }))}
               />
