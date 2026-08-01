@@ -85,9 +85,9 @@ function ChatWindow() {
                 const errorMessage = res?.error || 'The assistant is currently unavailable. Please try again.';
                 setVoiceError(errorMessage);
                 setReply('');
-            } else {
-                setReply(res.reply || '');
+                return;
             }
+            setReply(res.reply || '');
         } catch (err) {
             console.log(err);
             setVoiceError('The assistant is currently unavailable. Please try again.');

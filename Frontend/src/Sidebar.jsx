@@ -23,6 +23,10 @@ function Sidebar() {
         credentials: 'include',
       });
       const res = await response.json();
+      if (!response.ok || !Array.isArray(res)) {
+        console.error('Failed to load threads', res);
+        return;
+      }
       const filteredData = res.map((thread) => ({
         threadId: thread.threadId,
         title: thread.title,
@@ -53,6 +57,10 @@ function Sidebar() {
         credentials: 'include',
       });
       const res = await response.json();
+      if (!response.ok || !Array.isArray(res)) {
+        console.error('Failed to load thread', res);
+        return;
+      }
       setPrevChats(res);
       setNewChat(false);
       setReply(null);
