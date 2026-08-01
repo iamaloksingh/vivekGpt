@@ -11,11 +11,19 @@ app.use(express.json());
 app.use(cookieParser());
 const allowedOrigins = [
   "http://localhost:5173",
+  "http://127.0.0.1:5173",
   "https://vivekgptfrontend.onrender.com"
 ];
 app.use(cors({
-  origin: allowedOrigins,
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
+  exposedHeaders: ['Set-Cookie'],
 }));
 app.use("/api/auth", authRoutes);
 app.use("/api", chatRoutes)
