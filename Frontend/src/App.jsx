@@ -4,6 +4,7 @@ import ChatWindow from './ChatWindow.jsx';
 import { MyContext } from './MyContext.jsx';
 import { useEffect, useState } from 'react';
 import { v1 as uuidv1 } from 'uuid';
+const server = import.meta.env.VITE_SERVER || 'http://localhost:9000';
 
 function App() {
   const [prompt, setPrompt] = useState('');
@@ -33,56 +34,60 @@ function App() {
 
   const handleAuthSubmit = (event) => {
     event.preventDefault();
-    const users = JSON.parse(localStorage.getItem('alokgpt-users') || '[]');
-
+    // Call backend auth endpoints
     if (authMode === 'register') {
-      if (!authForm.name.trim() || !authForm.email.trim() || !authForm.password.trim()) {
-        setAuthError('Please fill in every field to create your account.');
-        return;
-      }
-
-      const existingUser = users.find((user) => user.email.toLowerCase() === authForm.email.toLowerCase());
-      if (existingUser) {
-        setAuthError('An account with that email already exists.');
-        return;
-      }
-
-      const newUser = {
-        id: uuidv1(),
-        name: authForm.name.trim(),
-        email: authForm.email.trim().toLowerCase(),
-        password: authForm.password
-      };
-
-      users.push(newUser);
-      localStorage.setItem('alokgpt-users', JSON.stringify(users));
-      localStorage.setItem('alokgpt-current-user', JSON.stringify(newUser));
-      setCurrentUser(newUser);
-      setIsAuthenticated(true);
-      setAuthError('');
+      fetch(`${server}/api/auth/register`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: authForm.name.trim(), email: authForm.email.trim().toLowerCase(), password: authForm.password })
+      })
+        .then((r) => r.json())
+        .then((data) => {
+          if (data.error) {
+            setAuthError(data.error);
+            return;
+          }
+          localStorage.setItem('alokgpt-current-user', JSON.stringify(data.user));
+          setCurrentUser(data.user);
+          setIsAuthenticated(true);
+          setAuthError('');
+        })
+        .catch((err) => setAuthError('Registration failed'));
       return;
     }
 
-    const user = users.find(
-      (entry) => entry.email.toLowerCase() === authForm.email.toLowerCase() && entry.password === authForm.password
-    );
-
-    if (!user) {
-      setAuthError('No account matched those details. Try again or register.');
-      return;
-    }
-
-    localStorage.setItem('alokgpt-current-user', JSON.stringify(user));
-    setCurrentUser(user);
-    setIsAuthenticated(true);
-    setAuthError('');
+    // login
+    fetch(`${server}/api/auth/login`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: authForm.email.trim().toLowerCase(), password: authForm.password })
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.error) {
+          setAuthError(data.error);
+          return;
+        }
+        localStorage.setItem('alokgpt-current-user', JSON.stringify(data.user));
+        setCurrentUser(data.user);
+        setIsAuthenticated(true);
+        setAuthError('');
+      })
+      .catch(() => setAuthError('Login failed'));
   };
 
   const logout = () => {
-    localStorage.removeItem('alokgpt-current-user');
-    setCurrentUser(null);
-    setIsAuthenticated(false);
-    setAuthForm({ name: '', email: '', password: '' });
+    fetch(`${server}/api/auth/logout`, {
+      method: 'POST',
+      credentials: 'include',
+    }).finally(() => {
+      localStorage.removeItem('alokgpt-current-user');
+      setCurrentUser(null);
+      setIsAuthenticated(false);
+      setAuthForm({ name: '', email: '', password: '' });
+    });
   };
 
   const providerValues = {

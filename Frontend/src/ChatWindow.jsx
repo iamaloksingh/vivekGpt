@@ -62,6 +62,7 @@ function ChatWindow() {
 
         const options = {
             method: 'POST',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -119,7 +120,7 @@ function ChatWindow() {
         <div className="chatWindow">
             <div className="navbar">
                 <div className="brand">
-                    <span>AlokGPT</span>
+                    <span>VivekGPT</span>
                     <i className="fa-solid fa-sparkles"></i>
                 </div>
                 <div className="profileMenu">
