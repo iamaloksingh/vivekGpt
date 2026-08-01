@@ -15,8 +15,6 @@ function Chat() {
             return;
         }
 
-        if (!prevChats?.length) return;
-
         const content = reply.split(' ');
         let idx = 0;
         const interval = setInterval(() => {
@@ -26,7 +24,7 @@ function Chat() {
         }, 35);
 
         return () => clearInterval(interval);
-    }, [prevChats, reply]);
+    }, [reply]);
 
     return (
         <>

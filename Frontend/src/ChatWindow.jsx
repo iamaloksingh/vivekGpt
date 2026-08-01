@@ -59,6 +59,12 @@ function ChatWindow() {
         setLoading(true);
         setNewChat(false);
         setVoiceError('');
+        setPrevChats((prev) => ([
+            ...prev,
+            { role: 'user', content: currentPrompt },
+            { role: 'assistant', content: '' }
+        ]));
+        setReply(null);
 
         const options = {
             method: 'POST',
@@ -84,16 +90,16 @@ function ChatWindow() {
     };
 
     useEffect(() => {
-        if (prompt && reply) {
-            setPrevChats((prevChats) => (
-                [...prevChats, {
-                    role: 'user',
-                    content: prompt
-                }, {
-                    role: 'assistant',
-                    content: reply
-                }]
-            ));
+        if (reply !== null) {
+            setPrevChats((prevChats) => {
+                if (!prevChats || prevChats.length === 0) {
+                    return [{ role: 'assistant', content: reply }];
+                }
+                const updated = [...prevChats];
+                // replace the last placeholder assistant message with the actual reply
+                updated[updated.length - 1] = { role: 'assistant', content: reply };
+                return updated;
+            });
         }
 
         setPrompt('');
