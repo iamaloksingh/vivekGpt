@@ -20,6 +20,9 @@
     "bcrypt": "^5.1.0",
     "cookie-parser": "^1.4.7",
     "jsonwebtoken": "^9.0.0",
-    "openai": "^6.45.0"
+    "openai": "^6.45.0",
+    "helmet": "^7.0.0",
+    "express-rate-limit": "^6.8.0",
+    "morgan": "^1.10.0"
   }
 }

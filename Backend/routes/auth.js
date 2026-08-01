@@ -14,12 +14,14 @@ if (!process.env.JWT_SECRET) {
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 const useSecureCookie = !isDevelopment;
+const COOKIE_DOMAIN = process.env.COOKIE_DOMAIN || undefined;
 const cookieOptions = {
   httpOnly: true,
   secure: useSecureCookie,
   sameSite: useSecureCookie ? 'none' : 'lax',
   maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
   path: '/',
+  ...(COOKIE_DOMAIN ? { domain: COOKIE_DOMAIN } : {}),
 };
 
 router.post('/register', async (req, res) => {
