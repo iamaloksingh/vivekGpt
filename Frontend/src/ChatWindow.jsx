@@ -3,7 +3,7 @@ import Chat from './Chat.jsx';
 import { MyContext } from './MyContext.jsx';
 import { useContext, useEffect, useState } from 'react';
 import { ScaleLoader } from 'react-spinners';
-const server = import.meta.env.VITE_SERVER;
+const server = import.meta.env.VITE_SERVER || window.location.origin;
 function ChatWindow() {
     const { prompt, setPrompt, reply, setReply, currThreadId, setPrevChats, setNewChat, theme, setTheme, currentUser, logout } = useContext(MyContext);
     const [loading, setLoading] = useState(false);
@@ -81,10 +81,17 @@ function ChatWindow() {
         try {
             const response = await fetch(`${server}/api/chat`, options);
             const res = await response.json();
-            setReply(res.reply);
+            if (!response.ok) {
+                const errorMessage = res?.error || 'The assistant is currently unavailable. Please try again.';
+                setVoiceError(errorMessage);
+                setReply('');
+            } else {
+                setReply(res.reply || '');
+            }
         } catch (err) {
             console.log(err);
             setVoiceError('The assistant is currently unavailable. Please try again.');
+            setReply('');
         }
         setLoading(false);
     };

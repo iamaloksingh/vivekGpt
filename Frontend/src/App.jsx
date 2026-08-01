@@ -4,7 +4,7 @@ import ChatWindow from './ChatWindow.jsx';
 import { MyContext } from './MyContext.jsx';
 import { useEffect, useState } from 'react';
 import { v1 as uuidv1 } from 'uuid';
-const server = import.meta.env.VITE_SERVER || 'http://localhost:9000';
+const server = import.meta.env.VITE_SERVER || window.location.origin;
 
 function App() {
   const [prompt, setPrompt] = useState('');
@@ -27,6 +27,32 @@ function App() {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('alokgpt-theme', theme);
   }, [theme]);
+
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      try {
+        const response = await fetch(`${server}/api/auth/me`, {
+          credentials: 'include',
+        });
+        if (!response.ok) {
+          localStorage.removeItem('alokgpt-current-user');
+          setCurrentUser(null);
+          setIsAuthenticated(false);
+          return;
+        }
+        const data = await response.json();
+        setCurrentUser(data.user);
+        setIsAuthenticated(true);
+        localStorage.setItem('alokgpt-current-user', JSON.stringify(data.user));
+      } catch (err) {
+        localStorage.removeItem('alokgpt-current-user');
+        setCurrentUser(null);
+        setIsAuthenticated(false);
+      }
+    };
+
+    fetchCurrentUser();
+  }, []);
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
