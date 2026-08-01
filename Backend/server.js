@@ -2,10 +2,13 @@ import express from "express";
 import "dotenv/config";
 import cors from "cors";
 import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
 import chatRoutes from "./routes/chat.js"
+import authRoutes from "./routes/auth.js"
 const app = express();
 const port = process.env.PORT || 9080;
 app.use(express.json());
+app.use(cookieParser());
 const allowedOrigins = [
   "http://localhost:5173",
   "https://vivekgptfrontend.onrender.com"
@@ -14,7 +17,8 @@ app.use(cors({
   origin: allowedOrigins,
   credentials: true,
 }));
-app.use("/api",chatRoutes)
+app.use("/api/auth", authRoutes);
+app.use("/api", chatRoutes)
 app.listen(port, () => {
   console.log(`server is running on ${port}`);
 

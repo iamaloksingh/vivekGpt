@@ -21,6 +21,12 @@ const ThreadSchema= new mongoose.Schema({
     required:true,
     unique:true
   },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+    index: true
+  },
   title:{
     type:String,
     default:"new chat"
@@ -31,4 +37,6 @@ const ThreadSchema= new mongoose.Schema({
     timestamps: true,
   }
 );
+// ensure a user can't have duplicate threadId collisions
+ThreadSchema.index({ userId: 1, threadId: 1 }, { unique: true });
 export default mongoose.model("Thread",ThreadSchema);
