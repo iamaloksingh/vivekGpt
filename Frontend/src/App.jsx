@@ -4,7 +4,7 @@ import ChatWindow from './ChatWindow.jsx';
 import { MyContext } from './MyContext.jsx';
 import { useEffect, useState } from 'react';
 import { v1 as uuidv1 } from 'uuid';
-const server = import.meta.env.VITE_SERVER || window.location.origin;
+const server = import.meta.env.VITE_SERVER || (window.location.host.includes('vivekgptfrontend.onrender.com') ? 'https://vivekgpt.onrender.com' : window.location.origin);
 
 function App() {
   const [prompt, setPrompt] = useState('');

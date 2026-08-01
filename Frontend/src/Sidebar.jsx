@@ -3,7 +3,7 @@ import { useContext, useEffect } from "react";
 import { MyContext } from "./MyContext.jsx";
 import { v1 as uuidv1 } from "uuid";
 import blackLogo from "../assets/blacklogo.png"; 
-const server = import.meta.env.VITE_SERVER || window.location.origin;
+const server = import.meta.env.VITE_SERVER || (window.location.host.includes('vivekgptfrontend.onrender.com') ? 'https://vivekgpt.onrender.com' : window.location.origin);
 function Sidebar() {
   const {
     allThreads,

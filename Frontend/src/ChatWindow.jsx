@@ -3,7 +3,7 @@ import Chat from './Chat.jsx';
 import { MyContext } from './MyContext.jsx';
 import { useContext, useEffect, useState } from 'react';
 import { ScaleLoader } from 'react-spinners';
-const server = import.meta.env.VITE_SERVER || window.location.origin;
+const server = import.meta.env.VITE_SERVER || (window.location.host.includes('vivekgptfrontend.onrender.com') ? 'https://vivekgpt.onrender.com' : window.location.origin);
 function ChatWindow() {
     const { prompt, setPrompt, reply, setReply, currThreadId, setPrevChats, setNewChat, theme, setTheme, currentUser, logout } = useContext(MyContext);
     const [loading, setLoading] = useState(false);
