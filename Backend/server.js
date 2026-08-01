@@ -16,7 +16,7 @@ const allowedOrigins = [
 ];
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
+    if (!origin || allowedOrigins.includes(origin) || origin?.endsWith('.onrender.com')) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
@@ -27,6 +27,7 @@ app.use(cors({
 }));
 app.use("/api/auth", authRoutes);
 app.use("/api", chatRoutes)
+// debug routes removed for production simplicity
 app.listen(port, () => {
   console.log(`server is running on ${port}`);
 

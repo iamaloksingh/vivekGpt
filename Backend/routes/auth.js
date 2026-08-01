@@ -12,11 +12,12 @@ if (!process.env.JWT_SECRET) {
   console.warn('WARNING: JWT_SECRET is not set. Using insecure default secret for development. Set JWT_SECRET in .env for production.');
 }
 
-const isProduction = process.env.NODE_ENV === 'production';
+const isDevelopment = process.env.NODE_ENV === 'development';
+const useSecureCookie = !isDevelopment;
 const cookieOptions = {
   httpOnly: true,
-  secure: isProduction,
-  sameSite: isProduction ? 'none' : 'lax',
+  secure: useSecureCookie,
+  sameSite: useSecureCookie ? 'none' : 'lax',
   maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
   path: '/',
 };
